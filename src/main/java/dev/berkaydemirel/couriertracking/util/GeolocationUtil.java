@@ -3,16 +3,16 @@ package dev.berkaydemirel.couriertracking.util;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LocationUtil {
+public class GeolocationUtil {
 
-    private static LocationUtil instance;
+    private static GeolocationUtil instance;
 
-    private LocationUtil() {
+    private GeolocationUtil() {
     }
 
-    public static synchronized LocationUtil getInstance() {
+    public static synchronized GeolocationUtil getInstance() {
         if (instance == null) {
-            instance = new LocationUtil();
+            instance = new GeolocationUtil();
         }
         return instance;
     }

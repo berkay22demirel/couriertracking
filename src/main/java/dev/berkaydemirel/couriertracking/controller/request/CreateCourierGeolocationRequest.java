@@ -7,7 +7,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 @Data
-public class CreateCourierLocationRequest {
+public class CreateCourierGeolocationRequest {
 
     @NotNull
     @Min(value = 0)

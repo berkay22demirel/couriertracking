@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Builder
 @Data
 @Entity
-public class CourierLocation {
+public class CourierGeolocation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
