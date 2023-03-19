@@ -11,17 +11,17 @@ import javax.validation.constraints.Min;
 public class CreateStoreRequest {
 
     @NotNull
-    @Length(min = 8, max = 64)
+    @Length(min = 3, max = 64)
     private String name;
 
     @NotNull
     @Min(value = 0)
     @Max(value = Long.MAX_VALUE)
-    private Long lat;
+    private Double lat;
 
     @NotNull
     @Min(value = 0)
     @Max(value = Long.MAX_VALUE)
-    private Long lng;
+    private Double lng;
 
 }

@@ -34,6 +34,7 @@ public class CourierTrackingService implements CourierGeolocationObserver {
 
     @Override
     public void update(CourierGeolocation courierGeolocation) {
+        log.info("Courier tracking for CourierId: {}", courierGeolocation.getCourier().getId());
         Date trackingDate = new Date();
         storeService.findAll()
                 .stream()
@@ -46,6 +47,7 @@ public class CourierTrackingService implements CourierGeolocationObserver {
         if (courierTrackingOptional.isPresent()) {
             CourierTracking courierTracking = courierTrackingOptional.get();
             if (ignoredMinuteOfCourierTracking >= DateUtil.getInstance().getDiffMinutes(courierTracking.getTrackingDate(), trackingDate)) {
+                log.info("Courier tracking ignored for CourierId: {} and StoreId: {}", courierGeolocation.getCourier().getId(), store.getId());
                 return;
             }
         }
@@ -55,5 +57,6 @@ public class CourierTrackingService implements CourierGeolocationObserver {
                 .trackingDate(trackingDate)
                 .build();
         courierTrackingRepository.save(courierTracking);
+        log.info("Courier tracking created for CourierId: {} and StoreId: {}", courierGeolocation.getCourier().getId(), store.getId());
     }
 }

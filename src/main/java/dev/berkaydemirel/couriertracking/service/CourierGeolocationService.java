@@ -7,12 +7,14 @@ import dev.berkaydemirel.couriertracking.repository.CourierGeolocationRepository
 import dev.berkaydemirel.couriertracking.repository.CourierRepository;
 import dev.berkaydemirel.couriertracking.util.GeolocationUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class CourierGeolocationService {
@@ -21,7 +23,7 @@ public class CourierGeolocationService {
     private final CourierGeolocationRepository courierGeolocationRepository;
     private final CourierRepository courierRepository;
 
-    public CourierGeolocation create(Long courierId, double lat, double lng) {
+    public CourierGeolocation create(Long courierId, Double lat, Double lng) {
         Courier courier = courierRepository.findById(courierId)
                 .orElseThrow(() -> new NotFoundException("Courier not found!"));
         CourierGeolocation courierGeoLocation = CourierGeolocation.builder()
@@ -32,11 +34,8 @@ public class CourierGeolocationService {
                 .build();
         CourierGeolocation courierGeolocation = courierGeolocationRepository.save(courierGeoLocation);
         notifyObserver(courierGeolocation);
+        log.info("Courier geolocation created successfully. CourierId: {}, CourierGeolocationId: {}", courierId, courierGeolocation.getId());
         return courierGeoLocation;
-    }
-
-    public void delete(Long courierId, Long id) {
-        courierGeolocationRepository.deleteByIdAndCourier(id, courierRepository.getReferenceById(courierId));
     }
 
     public Optional<CourierGeolocation> findLastByCourier(Long courierId) {

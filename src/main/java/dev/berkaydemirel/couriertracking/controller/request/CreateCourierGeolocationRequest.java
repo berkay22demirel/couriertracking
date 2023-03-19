@@ -12,10 +12,10 @@ public class CreateCourierGeolocationRequest {
     @NotNull
     @Min(value = 0)
     @Max(value = Long.MAX_VALUE)
-    private Long lat;
+    private Double lat;
 
     @NotNull
     @Min(value = 0)
     @Max(value = Long.MAX_VALUE)
-    private Long lng;
+    private Double lng;
 }

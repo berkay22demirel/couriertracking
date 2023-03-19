@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @RequiredArgsConstructor
-@RequestMapping("api/v1/couriers/{courierId}/locations")
+@RequestMapping("api/v1/couriers/{courierId}/geolocations")
 @RestController
 public class CourierGeolocationController {
 
@@ -22,20 +22,14 @@ public class CourierGeolocationController {
     @PostMapping
     public ResponseEntity<Response<CourierGeolocation>> create(@PathVariable @NotNull Long courierId, @RequestBody @Valid CreateCourierGeolocationRequest request) {
         CourierGeolocation courierGeoLocation = courierGeolocationService.create(courierId, request.getLat(), request.getLng());
-        return new ResponseEntity<>(new Response<>("Courier location created successfully.", courierGeoLocation), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Response<CourierGeolocation>> delete(@PathVariable @NotNull Long courierId, @PathVariable @NotNull Long id) {
-        courierGeolocationService.delete(courierId, id);
-        return new ResponseEntity<>(new Response<>("Courier location deleted successfully."), HttpStatus.OK);
+        return new ResponseEntity<>(new Response<>("Courier geolocation created successfully.", courierGeoLocation), HttpStatus.OK);
     }
 
     @GetMapping("/last")
-    public ResponseEntity<Response<CourierGeolocation>> getLastLocation(@PathVariable @NotNull Long courierId) {
+    public ResponseEntity<Response<CourierGeolocation>> getLastGeolocation(@PathVariable @NotNull Long courierId) {
         return courierGeolocationService.findLastByCourier(courierId)
                 .map(courierGeolocation -> new ResponseEntity<>(new Response<>(courierGeolocation), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(new Response<>("Courier location not found!"), HttpStatus.OK));
+                .orElseGet(() -> new ResponseEntity<>(new Response<>("Courier geolocation not found!"), HttpStatus.OK));
     }
 
     @GetMapping("/total-distance")

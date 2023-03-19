@@ -22,8 +22,8 @@ public class Store {
     private String name;
 
     @Column(nullable = false)
-    private double lat;
+    private Double lat;
 
     @Column(nullable = false)
-    private double lng;
+    private Double lng;
 }

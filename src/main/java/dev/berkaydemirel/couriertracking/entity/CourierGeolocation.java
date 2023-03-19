@@ -18,16 +18,16 @@ public class CourierGeolocation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "courierId", nullable = false)
     private Courier courier;
 
     @Column(nullable = false)
-    private double lat;
+    private Double lat;
 
     @Column(nullable = false)
-    private double lng;
+    private Double lng;
 
     @Column(nullable = false)
-    private double travelDistance;
+    private Double travelDistance;
 }

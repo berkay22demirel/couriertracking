@@ -8,10 +8,10 @@ import org.hibernate.validator.constraints.Length;
 public class CreateCourierRequest {
 
     @NotNull
-    @Length(min = 8, max = 64)
+    @Length(min = 3, max = 64)
     private String name;
 
     @NotNull
-    @Length(min = 8, max = 64)
+    @Length(min = 3, max = 64)
     private String surname;
 }

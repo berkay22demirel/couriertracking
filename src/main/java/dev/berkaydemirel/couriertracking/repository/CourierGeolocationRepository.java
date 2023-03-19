@@ -1,6 +1,5 @@
 package dev.berkaydemirel.couriertracking.repository;
 
-import dev.berkaydemirel.couriertracking.entity.Courier;
 import dev.berkaydemirel.couriertracking.entity.CourierGeolocation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,6 +11,5 @@ public interface CourierGeolocationRepository extends JpaRepository<CourierGeolo
     Optional<CourierGeolocation> findTopByCourierIdOrderByIdDesc(Long courierId);
 
     List<CourierGeolocation> findByCourierId(Long courierId);
-
-    void deleteByIdAndCourier(Long id, Courier courier);
+    
 }
