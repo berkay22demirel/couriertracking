@@ -1,0 +1,8 @@
+version: '3'
+services:
+  reading-is-good:
+    container_name: courier-tracking
+    build: .
+    image: courier-tracking:latest
+    ports:
+      - "8080:8080"
