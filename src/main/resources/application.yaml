@@ -1,1 +1,15 @@
-
+spring:
+  datasource:
+    url: jdbc:h2:mem:couriertracking
+    username: berkay
+    password: 1234
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
