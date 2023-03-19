@@ -1,7 +1,10 @@
 package dev.berkaydemirel.couriertracking.service;
 
+import dev.berkaydemirel.couriertracking.entity.Courier;
 import dev.berkaydemirel.couriertracking.entity.CourierLocation;
+import dev.berkaydemirel.couriertracking.exception.NotFoundException;
 import dev.berkaydemirel.couriertracking.repository.CourierLocationRepository;
+import dev.berkaydemirel.couriertracking.repository.CourierRepository;
 import dev.berkaydemirel.couriertracking.util.LocationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,10 +16,13 @@ import java.util.Optional;
 public class CourierLocationService {
 
     private final CourierLocationRepository courierLocationRepository;
+    private final CourierRepository courierRepository;
 
     public CourierLocation create(Long courierId, double lat, double lng) {
+        Courier courier = courierRepository.findById(courierId)
+                .orElseThrow(() -> new NotFoundException("Courier not found!"));
         CourierLocation courierLocation = CourierLocation.builder()
-                .courierId(courierId)
+                .courier(courier)
                 .lat(lat)
                 .lng(lng)
                 .travelDistance(calculateTravelDistance(courierId, lat, lng))
@@ -24,8 +30,8 @@ public class CourierLocationService {
         return courierLocationRepository.save(courierLocation);
     }
 
-    public void delete(Long id) {
-        courierLocationRepository.deleteById(id);
+    public void delete(Long courierId, Long id) {
+        courierLocationRepository.deleteByIdAndCourier(id, courierRepository.getReferenceById(courierId));
     }
 
     public Optional<CourierLocation> findLastByCourier(Long courierId) {

@@ -17,7 +17,7 @@ public class StoreService {
     private final StoreRepository storeRepository;
 
     @CacheEvict("stores")
-    public Store save(String name, double lat, double lng) {
+    public Store create(String name, double lat, double lng) {
         Store store = Store.builder()
                 .name(name)
                 .lat(lat)
@@ -32,7 +32,7 @@ public class StoreService {
     }
 
     @Cacheable(value = "stores", key = "#id")
-    public Optional<Store> find(Long id) {
+    public Optional<Store> findById(Long id) {
         return storeRepository.findById(id);
     }
 

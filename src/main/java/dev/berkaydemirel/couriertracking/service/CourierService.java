@@ -5,6 +5,7 @@ import dev.berkaydemirel.couriertracking.repository.CourierRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -25,7 +26,11 @@ public class CourierService {
         courierRepository.deleteById(id);
     }
 
-    public Optional<Courier> find(Long id) {
+    public Optional<Courier> findById(Long id) {
         return courierRepository.findById(id);
+    }
+
+    public List<Courier> findAll() {
+        return courierRepository.findAll();
     }
 }

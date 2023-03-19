@@ -18,8 +18,9 @@ public class CourierLocation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long courierId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "courierId", nullable = false)
+    private Courier courier;
 
     @Column(nullable = false)
     private double lat;
