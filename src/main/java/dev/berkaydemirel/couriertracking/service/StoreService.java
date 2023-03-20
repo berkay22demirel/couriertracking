@@ -18,7 +18,7 @@ public class StoreService {
 
     private final StoreRepository storeRepository;
 
-    @CacheEvict("stores")
+    @CacheEvict(value = "stores", allEntries = true)
     public Store create(String name, Double lat, Double lng) {
         Store store = Store.builder()
                 .name(name)
@@ -30,7 +30,7 @@ public class StoreService {
         return store;
     }
 
-    @CacheEvict("stores")
+    @CacheEvict(value = "stores", allEntries = true)
     public void delete(Long id) {
         storeRepository.deleteById(id);
         log.info("Store deleted successfully. StoreId: {}", id);

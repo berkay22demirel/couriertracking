@@ -1,7 +1,7 @@
 dev:
   berkaydemirel:
     couriertracking:
-      ignored-minute-of-courier-tracking: 1
+      ignored-second-of-courier-tracking: 60
       courier-tracking-distance: 0.1
 spring:
   datasource:

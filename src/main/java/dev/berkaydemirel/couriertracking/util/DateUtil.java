@@ -17,7 +17,7 @@ public class DateUtil {
         return instance;
     }
 
-    public long getDiffMinutes(Date startDate, Date endDate) {
-        return TimeUnit.MILLISECONDS.toMinutes((endDate.getTime() - startDate.getTime()));
+    public long getDiffSeconds(Date startDate, Date endDate) {
+        return TimeUnit.MILLISECONDS.toSeconds((endDate.getTime() - startDate.getTime()));
     }
 }

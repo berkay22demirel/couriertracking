@@ -20,16 +20,15 @@ public class CourierTrackingService implements CourierGeolocationObserver {
     private final CourierTrackingRepository courierTrackingRepository;
     private final StoreService storeService;
 
-    @Value("${dev.berkaydemirel.couriertracking.ignored-minute-of-courier-tracking}")
-    private Integer ignoredMinuteOfCourierTracking;
+    @Value("${dev.berkaydemirel.couriertracking.ignored-second-of-courier-tracking}")
+    private Integer ignoredSecondOfCourierTracking;
 
     @Value("${dev.berkaydemirel.couriertracking.courier-tracking-distance}")
     private Double courierTrackingDistance;
 
-    public CourierTrackingService(CourierTrackingRepository courierTrackingRepository, StoreService storeService, CourierGeolocationService courierGeolocationService) {
+    public CourierTrackingService(CourierTrackingRepository courierTrackingRepository, StoreService storeService) {
         this.courierTrackingRepository = courierTrackingRepository;
         this.storeService = storeService;
-        courierGeolocationService.attachObserver(this);
     }
 
     @Override
@@ -46,7 +45,7 @@ public class CourierTrackingService implements CourierGeolocationObserver {
         Optional<CourierTracking> courierTrackingOptional = courierTrackingRepository.findTopByStoreIdAndCourierIdOrderByIdDesc(store.getId(), courierGeolocation.getCourier().getId());
         if (courierTrackingOptional.isPresent()) {
             CourierTracking courierTracking = courierTrackingOptional.get();
-            if (ignoredMinuteOfCourierTracking >= DateUtil.getInstance().getDiffMinutes(courierTracking.getTrackingDate(), trackingDate)) {
+            if (ignoredSecondOfCourierTracking >= DateUtil.getInstance().getDiffSeconds(courierTracking.getTrackingDate(), trackingDate)) {
                 log.info("Courier tracking ignored for CourierId: {} and StoreId: {}", courierGeolocation.getCourier().getId(), store.getId());
                 return;
             }

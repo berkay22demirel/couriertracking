@@ -10,16 +10,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class CourierGeolocationService {
 
-    private final Set<CourierGeolocationObserver> observers = new HashSet<>();
+    private final List<CourierGeolocationObserver> observers;
     private final CourierGeolocationRepository courierGeolocationRepository;
     private final CourierRepository courierRepository;
 
@@ -46,10 +45,6 @@ public class CourierGeolocationService {
         return courierGeolocationRepository.findByCourierId(courierId).stream()
                 .mapToDouble(CourierGeolocation::getTravelDistance)
                 .sum();
-    }
-
-    public void attachObserver(CourierGeolocationObserver courierGeolocationObserver) {
-        observers.add(courierGeolocationObserver);
     }
 
     private void notifyObserver(CourierGeolocation courierGeolocation) {
