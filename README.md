@@ -30,7 +30,7 @@ and calculates the total distance. It follows the couriers around the stores.
 You can start the project with docker.
 
     mvn clean package
-    docker compose up reading-is-good
+    docker compose up courier-tracking
 
 ## POSTMAN COLLECTION
 
